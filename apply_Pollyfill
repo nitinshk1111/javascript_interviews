@@ -1,0 +1,31 @@
+//native implementation
+
+let myName1 = {
+  firstName: 'abc',
+  lastName: 'kumar',
+};
+function sayName(param1, param2) {
+  console.log(this.firstName + " " + this.lastName);
+  console.log(param1 + '   ' + param2);
+}
+sayName.apply(myName1, ['p1','p2'])
+
+
+// own implementation
+
+Function.prototype.myApply = function(obj, args) {
+  //here args itself a array , so not using spread operator
+
+  if(typeof this !== "function"){
+    throw new Error("tis is not a callable function");
+  }
+  
+  if(!Array.isArray(args)){
+  	throw new Error("provide argument as array");
+  }
+  const fn = this;
+  obj.fn = fn;
+  obj.fn(...args)
+}
+
+sayName.myApply(myName1,['p1','p2'])
