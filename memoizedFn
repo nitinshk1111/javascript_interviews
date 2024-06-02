@@ -1,0 +1,45 @@
+const add = (a,b) => {
+    console.log("add function")
+    return a+b;
+} 
+
+const subtract = (a,b) => {
+    console.log("subtract function")
+    return a- b;
+} 
+
+
+function memoizedOne(fn) {  
+    const cache = new Map();
+    return (...args) => {
+        if(cache.get(args+"")) {
+        	return cache.get(args+"")
+    		}
+        const result = fn(...args);
+        cache.set(args+"",result)
+        return result
+    };
+}
+
+// const a = (1,2)
+const memoizedAdd = memoizedOne(add)
+const memoizedSubtract = memoizedOne(subtract)
+
+
+
+console.log(memoizedAdd(1,2));
+console.log(memoizedAdd(1,2));
+console.log(memoizedAdd(3,2));
+console.log(memoizedAdd(3,2));
+console.log(memoizedAdd(2,3));
+
+console.log(memoizedSubtract(3,2));
+console.log(memoizedSubtract(3,2));
+
+
+
+
+
+
+
+
