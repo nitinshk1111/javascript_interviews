@@ -1,0 +1,31 @@
+// native call function
+
+
+let myName = {
+  firstName: 'Nitin',
+  lastName: 'Shekhar',
+};
+ 
+console.log("================ browser native call results============")
+function sayName(param1, param2) {
+  console.log(this.firstName + " " + this.lastName);
+  console.log(param1 + '   ' + param2);
+}
+
+sayName.call(myName, 'p1','p2')
+
+
+//own implementation
+
+Function.prototype.myCall = function(obj, ...args) {
+
+if(typeof this !== "function"){
+	throw new Error("tis is not a callable function");
+}
+	const fn = this;
+  	obj.fn = fn;
+    obj.fn(...args)
+}
+
+sayName.myCall(myName, 'param1','param2')
+
